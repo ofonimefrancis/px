@@ -3,11 +3,12 @@ package main
 import (
 	"net/http"
 
-	"github.com/go-chi/chi"
+	"github.com/ofonimefrancis/pixels/graphql"
 )
 
 func main() {
 
-	router := chi.NewRouter()
+	router := graphql.NewGraphQLFacade()
+
 	http.ListenAndServe(":8000", nil)
 }

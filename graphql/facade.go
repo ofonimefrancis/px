@@ -1,6 +1,7 @@
 package graphql
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -25,6 +26,7 @@ func (f *Facade) handler(schema graphql.Schema) *chi.Mux {
 			Schema:  schema,
 			Context: ctx,
 		})
+		json.NewDecoder(w).Encode(result)
 	}
 }
 
