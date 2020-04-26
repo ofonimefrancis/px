@@ -8,8 +8,8 @@ import (
 
 	"github.com/go-chi/chi"
 	homedir "github.com/mitchellh/go-homedir"
-	"github.com/ofonimefrancis/pixels/graphql"
 	"github.com/ofonimefrancis/pixels/pkg/datastore/driver"
+	"github.com/ofonimefrancis/pixels/pkg/graphql"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
