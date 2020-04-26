@@ -7,9 +7,11 @@ import (
 	"os"
 
 	"github.com/go-chi/chi"
-	homedir "github.com/mitchellh/go-homedir"
-	"github.com/ofonimefrancis/pixels/pkg/datastore/driver"
-	"github.com/ofonimefrancis/pixels/pkg/graphql"
+	"github.com/mitchellh/go-homedir"
+	"github.com/ofonimefrancis/pixels/api/features/account"
+	"github.com/ofonimefrancis/pixels/api/features/graphql"
+	"github.com/ofonimefrancis/pixels/api/repository"
+	mongo "github.com/ofonimefrancis/pixels/api/repository/mongo"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -31,10 +33,11 @@ var rootCmd = &cobra.Command{
 	Short: "This is the API",
 	Long:  `Long Description will go here`,
 	Run: func(cmd *cobra.Command, args []string) {
-		driver := driver.NewConnectionDriver()
 		//pass the driver to setup services
+		datastore := chooseRepository(config.DBDriver, config.DatabaseName, config.DatabaseURI, config.DatabaseTimeout)
+		userService := account.NewUserService(datastore)
 		router := chi.NewMux()
-		graphQLFacade := graphql.NewGraphQLFacade(driver)
+		graphQLFacade := graphql.NewGraphQLFacade()
 		graphQLFacade.RegisterRoutes(router)
 
 		log.Println("Application running on http://localhost:8000")
@@ -81,4 +84,8 @@ func initConfig(cfgFile string) func() {
 		fmt.Println(config)
 	}
 
+}
+
+func chooseRepository(driver, dbName, dbUri string, timeout int) repository.UserRepository {
+	repo, err := mongo.NewUserRepository(dbUri, dbName, timeout)
 }
