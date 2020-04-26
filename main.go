@@ -1,14 +1,15 @@
 package main
 
-import (
-	"net/http"
-
-	"github.com/ofonimefrancis/pixels/graphql"
-)
+import "github.com/ofonimefrancis/pixels/cmd"
 
 func main() {
 
-	router := graphql.NewGraphQLFacade()
+	// router := chi.NewMux()
+	// graphQLFacade := graphql.NewGraphQLFacade()
+	// graphQLFacade.RegisterRoutes(router)
 
-	http.ListenAndServe(":8000", nil)
+	// log.Println("Application running on http://localhost:8000")
+	// http.ListenAndServe(":8000", router)
+
+	cmd.Execute()
 }

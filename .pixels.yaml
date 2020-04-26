@@ -1,0 +1,9 @@
+---
+app_name: "pixels"
+port: "9000"
+is_production: false
+database_driver: "mongo"
+database_name: "pixels"
+database_uri: "mongodb://localhost:27017/"
+database_timeout: 10
+
